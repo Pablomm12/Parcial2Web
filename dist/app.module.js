@@ -12,6 +12,9 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const typeorm_1 = require("@nestjs/typeorm");
 const estudiante_entity_1 = require("./estudiante/estudiante.entity/estudiante.entity");
+const usuario_entity_1 = require("./usuario/usuario.entity/usuario.entity");
+const bono_entity_1 = require("./bono/bono.entity/bono.entity");
+const clase_entity_1 = require("./clase/clase.entity/clase.entity");
 const estudiante_module_1 = require("./estudiante/estudiante.module");
 let AppModule = class AppModule {
 };
@@ -25,11 +28,11 @@ exports.AppModule = AppModule = __decorate([
                 username: 'postgres',
                 password: 'pablo123',
                 database: 'Parcial2',
-                entities: [estudiante_entity_1.EstudianteEntity],
+                entities: [usuario_entity_1.UsuarioEntity, bono_entity_1.BonoEntity, clase_entity_1.ClaseEntity, estudiante_entity_1.EstudianteEntity],
                 dropSchema: true,
                 synchronize: true,
                 keepConnectionAlive: true
-            })],
+            }),],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })
