@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BonoService } from './bono.service';
 import { BonoController } from './bono.controller';
-import { BonoEntity } from 'src/bono/bono.entity/bono.entity'; 
+import { BonoEntity } from '../bono/bono.entity/bono.entity'; 
 
 @Module({
   imports: [

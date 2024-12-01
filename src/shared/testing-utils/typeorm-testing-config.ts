@@ -1,6 +1,10 @@
 /* eslint-disable prettier/prettier */
 /* archivo src/shared/testing-utils/typeorm-testing-config.ts*/
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ClaseEntity } from '../../clase/clase.entity/clase.entity';
+import { BonoEntity } from '../../bono/bono.entity/bono.entity';
+import { UsuarioEntity } from '../../usuario/usuario.entity/usuario.entity';
+
 
 
 export const TypeOrmTestingConfig = () => [
@@ -8,10 +12,10 @@ export const TypeOrmTestingConfig = () => [
    type: 'sqlite',
    database: ':memory:',
    dropSchema: true,
-   entities: [],
+   entities: [ClaseEntity, BonoEntity, UsuarioEntity],
    synchronize: true,
    keepConnectionAlive: true
  }),
- TypeOrmModule.forFeature([]),
+ TypeOrmModule.forFeature([ClaseEntity, BonoEntity, UsuarioEntity]),
 ];
 /* archivo src/shared/testing-utils/typeorm-testing-config.ts*/

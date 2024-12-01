@@ -2,7 +2,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { BonoEntity } from 'src/bono/bono.entity/bono.entity';
+import { BonoEntity } from '../bono/bono.entity/bono.entity';
 import { NotFoundError } from 'rxjs';
 
 @Injectable()

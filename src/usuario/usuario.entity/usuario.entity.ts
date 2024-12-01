@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { BonoEntity } from 'src/bono/bono.entity/bono.entity';
-import { ClaseEntity } from 'src/clase/clase.entity/clase.entity';
+import { BonoEntity } from '../../bono/bono.entity/bono.entity';
+import { ClaseEntity } from '../../clase/clase.entity/clase.entity';
 
 @Entity()
 export class UsuarioEntity {
@@ -18,7 +18,7 @@ export class UsuarioEntity {
     cedula: number; 
     
     @Column()
-    rol: string[];
+    rol: string;
     
     @Column()
     numero_extension : number; 

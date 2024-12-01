@@ -33,8 +33,8 @@ __decorate([
     __metadata("design:type", Number)
 ], UsuarioEntity.prototype, "cedula", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Array)
+    (0, typeorm_1.Column)({ type: 'enum', enum: ['Profesor', 'Decana'] }),
+    __metadata("design:type", String)
 ], UsuarioEntity.prototype, "rol", void 0);
 __decorate([
     (0, typeorm_1.Column)(),

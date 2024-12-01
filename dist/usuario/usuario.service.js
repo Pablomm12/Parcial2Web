@@ -27,7 +27,7 @@ let UsuarioService = class UsuarioService {
         if (usuario.rol.includes("Profesor") && !validGroups.includes(usuario.grupo_investigacion)) {
             throw new common_1.BadRequestException('Grupo de investigación para profesor inválido');
         }
-        if (usuario.rol.includes("Decana") && usuario.numero_extension.toString().length !== 8) {
+        if (usuario.rol === 'Decana' && usuario.numero_extension.toString().length !== 8) {
             throw new common_1.BadRequestException('Número de extensión para decana inválido');
         }
         return await this.usuarioRepository.save(usuario);
@@ -40,7 +40,7 @@ let UsuarioService = class UsuarioService {
         if (!usuario) {
             throw new rxjs_1.NotFoundError('Usuario no encontrado');
         }
-        if (usuario.rol.includes("Decana")) {
+        if (usuario.rol === 'Decana') {
             throw new common_1.BadRequestException('No se puede eliminar a la decana');
         }
         const tiene = usuario.bonos.length > 0;

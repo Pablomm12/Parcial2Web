@@ -18,7 +18,7 @@ export class UsuarioService {
         if (usuario.rol.includes("Profesor") && !validGroups.includes(usuario.grupo_investigacion) ) {
             throw new BadRequestException('Grupo de investigación para profesor inválido');
         }
-        if (usuario.rol.includes("Decana") && usuario.numero_extension.toString().length !== 8) {
+        if (usuario.rol === 'Decana' && usuario.numero_extension.toString().length !== 8) {
             throw new BadRequestException('Número de extensión para decana inválido');
         }
         return await this.usuarioRepository.save(usuario);
@@ -34,7 +34,7 @@ export class UsuarioService {
             throw new NotFoundError('Usuario no encontrado');
         }
 
-        if (usuario.rol.includes("Decana")) {
+        if (usuario.rol === 'Decana') {
             throw new BadRequestException('No se puede eliminar a la decana');
         }
 

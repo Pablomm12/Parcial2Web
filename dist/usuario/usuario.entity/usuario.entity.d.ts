@@ -5,7 +5,7 @@ export declare class UsuarioEntity {
     nombre: string;
     grupo_investigacion: string;
     cedula: number;
-    rol: string[];
+    rol: 'Profesor' | 'Decana';
     numero_extension: number;
     usuario: UsuarioEntity;
     bonos: BonoEntity[];
