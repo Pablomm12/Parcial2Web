@@ -13,7 +13,7 @@ export class UsuarioController {
 
     @Get(':id')
     async findeUsuarioById(@Param('id') id: number): Promise<UsuarioEntity> {
-        return this.usuarioService.findeUsuarioById(id);
+        return this.usuarioService.findUsuarioById(id);
     }
 
     @Delete(':id')

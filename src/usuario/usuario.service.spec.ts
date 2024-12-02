@@ -5,8 +5,9 @@ import { TypeOrmTestingConfig } from '../shared/testing-utils/typeorm-testing-co
 import { UsuarioService } from './usuario.service';
 import { UsuarioEntity } from './usuario.entity/usuario.entity';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { NotFoundError } from 'rxjs';
 
-import { faker } from '@faker-js/faker';
+import { fa, faker } from '@faker-js/faker';
 
 describe('UsuarioService', () => {
   let service: UsuarioService;
@@ -77,15 +78,18 @@ describe('UsuarioService', () => {
 
   it('findeUsuarioById debería retornar un usuario por su id', async () => {
     const usuario = usuariosList[0];
-    const result = await service.findeUsuarioById(usuario.id);
+    const result = await service.findUsuarioById(usuario.id);
     expect(result).toBeDefined();
     expect(result.id).toEqual(usuario.id);
   });
 
   it('findeUsuarioById debería lanzar un error si el usuario no existe', async () => {
-    await expect(service.findeUsuarioById(12345678)).rejects.toThrow(
-      NotFoundException,
-    );
+    try {
+      await service.findUsuarioById(9999);
+    } catch (error) {
+      expect(error).toBeInstanceOf(NotFoundError);
+      expect(error.message).toEqual('Usuario no encontrado');
+    }
   });
 
   it('eliminarUsuarioById debería eliminar un usuario sin bonos asociados', async () => {
@@ -96,13 +100,23 @@ describe('UsuarioService', () => {
   });
 
   it('eliminarUsuarioById debería lanzar un error si el usuario tiene bonos asociados', async () => {
-    const usuario = usuariosList[2];
-    await repository.save({
-      ...usuario,
-      bonos: [{ id: undefined, usuario, descripcion: 'Bono de prueba' }],
+    const usuario = await repository.save({
+      cedula: faker.number.int(),
+      nombre: faker.person.firstName(),
+      grupo_investigacion: 'TICSW',
+      numero_extension: faker.number.int(),
+      rol: 'Profesor',
     });
 
-    await expect(service.eliminarUsuarioById(usuario.id)).rejects.toThrow(BadRequestException);
+    usuario.bonos = [{id: faker} as any];
+    await repository.save(usuario);
+
+    try{
+      await service.eliminarUsuarioById(usuario.id);
+    } catch (error) {
+      expect(error).toBeInstanceOf(BadRequestException);
+      expect(error.message).toEqual('No se puede eliminar el usuario porque tiene bonos asociados');
+    }
   });
 
   it('eliminarUsuarioById debería lanzar un error si el usuario es Decana', async () => {

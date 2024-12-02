@@ -24,7 +24,7 @@ export class UsuarioService {
         return await this.usuarioRepository.save(usuario);
     }
 
-    async findeUsuarioById(id: number): Promise<UsuarioEntity> {
+    async findUsuarioById(id: number): Promise<UsuarioEntity> {
         return this.usuarioRepository.findOne({ where: { id } });
     }
 
